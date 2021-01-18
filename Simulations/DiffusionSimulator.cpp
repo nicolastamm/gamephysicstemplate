@@ -57,6 +57,11 @@ void Grid::write(int x, int y, Real val)
 	grid[x][y] = val;
 }
 
+void Grid::resize(int m, int n)
+{
+	init(m, n);
+	fillRand();
+}
 
 DiffusionSimulator::DiffusionSimulator()
 {
@@ -205,7 +210,10 @@ void DiffusionSimulator::setupA(SparseMatrix<Real>& A, double factor) {//add you
 void DiffusionSimulator::diffuseTemperatureImplicit(float timeStep) {//add your own parameters
 	// solve A T = b
 	// to be implemented
-	const int N = 16 * 16;//N = sizeX*sizeY*sizeZ
+	int m = T->getM();
+	int n = T->getN();
+
+	const int N = m * n;//N = sizeX*sizeY*sizeZ
 	SparseMatrix<Real> *A = new SparseMatrix<Real>(N);
 	std::vector<Real> *b = new std::vector<Real>(N);
 
@@ -234,6 +242,10 @@ void DiffusionSimulator::diffuseTemperatureImplicit(float timeStep) {//add your 
 void DiffusionSimulator::onGridSizeChange(int m, int n)
 {
 	// TODO: implement this
+	if (m != T->getM() || n != T->getN())
+	{
+		T->resize(m, n);
+	}
 }
 
 

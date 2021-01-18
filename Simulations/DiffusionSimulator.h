@@ -19,6 +19,7 @@ public:
 	std::vector<std::vector<Real>> getGrid();
 	Real read(int x, int y);
 	void write(int x, int y, Real val);
+	void resize(int m, int n);
 
 private:
 	// Attributes

@@ -263,6 +263,10 @@ void CALLBACK OnFrameMove(double dTime, float fElapsedTime, void* pUserContext)
 		g_pSimulator->initUI(g_pDUC);
 		g_iPreTestCase = g_iTestCase;
 	}
+#ifdef DIFFUSION_SYSTEM
+	DiffusionSimulator* diffusionSimulator = (DiffusionSimulator*)g_pSimulator;
+	diffusionSimulator->onGridSizeChange(g_iM, g_iN);
+#endif
 	if (!g_bSimulateByStep) {
 #ifdef ADAPTIVESTEP
 		g_pSimulator->externalForcesCalculations(fElapsedTime);
