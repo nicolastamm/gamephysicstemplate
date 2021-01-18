@@ -181,13 +181,13 @@ void DiffusionSimulator::setupA(SparseMatrix<Real>& A, double factor) {//add you
 	int m = T->getM();
 	int n = T->getN();
 
-	for(int row = 0; row < pow(m,2); row++)
+	for(int row = 0; row < m*n; row++)
 	{
 		//First m and last m rows are border.
-		//Also, row % m == 0 and row % m == m-1 are borders too.
+		//Also, row % n == 0 and row % n == n-1 are borders too.
 		//Set the diag value to one for all of these.
 		if (row < m || row > pow(row, 2) - m
-			|| row % m == 0 || row % m == m - 1)
+			|| row % n == 0 || row % n == n - 1)
 		{
 			A.set_element(row, row, 1.0);
 			continue;
